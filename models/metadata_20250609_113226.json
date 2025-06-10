@@ -1,0 +1,26 @@
+{
+  "timestamp": "20250609_113226",
+  "feature_names": [
+    "recency_score",
+    "frequency",
+    "monetary",
+    "avg_order_value",
+    "product_diversity",
+    "purchase_frequency",
+    "monetary_per_purchase",
+    "products_per_purchase"
+  ],
+  "n_clusters": 4,
+  "cluster_labels": {
+    "0": "Champions",
+    "1": "Loyal Customers",
+    "2": "Potential Loyalists",
+    "3": "New Customers",
+    "4": "At Risk",
+    "5": "Cannot Lose Them",
+    "6": "Hibernating",
+    "7": "Price Sensitive",
+    "8": "Promising",
+    "9": "Need Attention"
+  }
+}

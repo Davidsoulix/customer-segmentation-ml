@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  customer-segmentation-ml:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:2405@db:5432/machine
+      - MODEL_PATH=/app/models/
+    volumes:
+      - ./models:/app/models
+      - ./data:/app/data
+    depends_on:
+      - db
+    restart: unless-stopped
+    networks:
+      - ml-network
+
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: machine
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 2405
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - ml-network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    networks:
+      - ml-network
+
+volumes:
+  postgres_data:
+
+networks:
+  ml-network:
+    driver: bridge
